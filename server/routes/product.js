@@ -108,7 +108,7 @@ router.get('/products_by_id', (req, res) => {
     // id=123123123, 123123123, 123123123 이거를
     //  productIds = ['123123123', '123123123', '123123123'] 이런식으로 바꿔주기
     
-    let ids = req.query.id.splice(',')
+    let ids = req.query.id.split(',')
     productIds = ids.map(item => {
       return item
     })
@@ -120,7 +120,7 @@ router.get('/products_by_id', (req, res) => {
     .populate('writer')
     .exec((err, product) => {
       if(err) return res.status(400).send(err)
-      return res.status(200).send({ success: true, product })
+      return res.status(200).json({ success: true, product })
     })
 })
 
