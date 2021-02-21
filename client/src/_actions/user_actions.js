@@ -74,10 +74,10 @@ export function getCartItems(cartItems, userCart){
 
             userCart.forEach(cartItem => {
                 
-                response.data.product.forEach((productDetail, index) => {
+                response.data.forEach((productDetail, index) => {
 
                     if(cartItem.id === productDetail._id) {
-                        response.data.product[index].quantity = cartItem.quantity
+                        response.data[index].quantity = cartItem.quantity
                     }
                 })
                 
