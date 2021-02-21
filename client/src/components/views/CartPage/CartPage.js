@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { getCartItems } from '../../../_actions/user_actions';
 import UserCardBlock from './Sections/UserCardBlock';
 
 function CartPage(props) {
     const dispatch = useDispatch();
+
+    const [Total, setTotal] = useState(0)
 
     useEffect(() => {
 
@@ -18,10 +20,20 @@ function CartPage(props) {
                 })
 
                 dispatch(getCartItems(cartItems, props.user.userData.cart))
+                .then(response => { calculateTotal(response.payload)})
                 
             }
         }
     }, [props.user.userData])
+
+    let calculateTotal = (cartDetail) => {
+        let total = 0;
+
+        cartDetail.map(item => {
+            total += parseInt(item.price,10) * item.quantity
+        })
+        setTotal(total)
+    }
     
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
@@ -29,6 +41,10 @@ function CartPage(props) {
 
             <div>
                 <UserCardBlock products={props.user.cartDetail} />
+            </div>
+            
+            <div>
+                <h2>Total Amount: ${Total}</h2>
             </div>
 
 
