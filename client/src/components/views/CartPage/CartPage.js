@@ -70,9 +70,15 @@ function CartPage(props) {
             <Empty description={false} />
             </>
         
-        }
+            }
+
+            {ShowTotal &&
+                <Paypal 
+                    total={Total}
+                />
             
-            <Paypal />
+            }
+            
 
 
             
